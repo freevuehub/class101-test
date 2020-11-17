@@ -15,6 +15,11 @@ export interface IStoreProductsState {
   count: number
 }
 
+export interface IStoreCartState {
+  list: IProduct[]
+}
+
 export interface IStoreState {
   products: IStoreProductsState
+  cart: IStoreCartState
 }

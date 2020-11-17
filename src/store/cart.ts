@@ -1,21 +1,21 @@
-// import { IProduct, IStoreProductsState } from '../types'
+import { IProduct, IStoreCartState } from '../types'
 
 const ADD_PRODUCT = '@/cart/ADD/PRODUCT'
 const DELETE_PRODUCT = '@/cart/DELETE/PRODUCT'
 
-export const addProduct = (payload: any) => ({ type: ADD_PRODUCT, payload })
-export const deleteProduct = (payload: any) => ({ type: DELETE_PRODUCT, payload })
+export const addProduct = (payload: IProduct) => ({ type: ADD_PRODUCT, payload })
+export const deleteProduct = (payload: string) => ({ type: DELETE_PRODUCT, payload })
 
 const initailizeState = {
-  cartList: [],
+  list: [],
 }
 
-export default (state: any = initailizeState, actions: any) => {
+export default (state: IStoreCartState = initailizeState, actions: any) => {
   switch (actions.type) {
     case ADD_PRODUCT:
       return {
         ...state,
-        cartList: [...state.cartList, actions.payload.product],
+        list: [...state.list, actions.payload.product],
       }
     case DELETE_PRODUCT:
       return {
