@@ -9,7 +9,7 @@ const LayoutStyled = styled(Layout)`
   min-height: 100vh;
 `
 const ContentStyled = styled(Layout.Content)`
-  max-width: 1200px;
+  width: 1200px;
   padding: 50px 0;
   margin: 0 auto;
 `
