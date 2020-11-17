@@ -5,6 +5,7 @@ import { Card } from 'antd'
 import { IProduct, ICartListItem, IStoreState } from '../types'
 import { ShoppingCartOutlined, HeartOutlined } from '@ant-design/icons'
 import { addProduct, deleteProduct } from '../store/cart'
+import { priceString } from '../utils'
 
 interface IProps {
   item: IProduct
@@ -48,11 +49,10 @@ const ProductListItem: React.FC<IProps> = (props) => {
     <HeartOutlined key="heart" />,
     <CartIconStyled onClick={onCartClick} key="cart" className={`${isCart ? 'on' : ''}`} />,
   ]
-  const priceString = `${props.item.price}`.replace(/(\d)(?=(?:\d{3})+(?!\d))/, '$1,')
 
   return (
     <CardStyled hoverable cover={cardCover} actions={cardActionList}>
-      <Card.Meta title={props.item.title} description={`${priceString} 원`} />
+      <Card.Meta title={props.item.title} description={`${priceString(props.item.price)} 원`} />
     </CardStyled>
   )
 }
