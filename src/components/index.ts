@@ -1,3 +1,5 @@
 export { default as AppBar } from './AppBar'
 export { default as ProductListItem } from './ProductListItem'
 export { default as CartListItem } from './CartListItem'
+export { default as Receipt } from './Receipt'
+export { default as PriceRow } from './PriceRow'
