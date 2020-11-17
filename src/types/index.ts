@@ -21,6 +21,7 @@ export interface IStoreProductsState {
 export interface ICartListItem {
   id: string
   count: number
+  checked: boolean
 }
 
 export interface IStoreCartState {
