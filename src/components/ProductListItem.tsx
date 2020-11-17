@@ -27,7 +27,7 @@ const ProductListItem: React.FC<IProps> = (props) => {
   const cardCover = <img src={props.item.coverImage} alt={props.item.title} />
   const cardActionList = [
     <HeartOutlined key="heart" />,
-    <ShoppingCartOutlined onClick={onCartClick} key="cart" twoToneColor="#eb2f96" />,
+    <ShoppingCartOutlined onClick={onCartClick} key="cart" />,
   ]
   const priceString = `${props.item.price}`.replace(/(\d)(?=(?:\d{3})+(?!\d))/, '$1,')
 
