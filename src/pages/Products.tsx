@@ -3,7 +3,7 @@ import styled from 'styled-components'
 import { useLocation, useHistory } from 'react-router-dom'
 import { useSelector, useDispatch } from 'react-redux'
 import queryString from 'query-string'
-import { Row, Col, Pagination } from 'antd'
+import { Alert, Row, Col, Pagination } from 'antd'
 import { listUpdate } from '../store/products'
 import { getProductList } from '../api'
 import { ProductListItem } from '../components'
@@ -17,6 +17,7 @@ const PageStyled = styled(Pagination)`
   margin-top: 20px;
 `
 
+const limit = 5
 const listMap = ([id, item]: [string, IProduct]) => (
   <ColStyled key={id} span={8} className="gutter-row">
     <ProductListItem item={item} />
@@ -27,7 +28,6 @@ const Products: React.FC = () => {
   const history = useHistory()
   const query = queryString.parse(useLocation().search)
 
-  const limit = 5
   const page = Number(query.page || 1)
 
   const list: TypeMapProduct = useSelector((state: IStoreState) => state.products.list)
@@ -39,6 +39,7 @@ const Products: React.FC = () => {
   const listFilter = (_: [string, IProduct], index: number) => {
     return (page - 1) * limit <= index && index < page * limit
   }
+  const viewList = [...list].filter(listFilter)
 
   const getList = async () => {
     const { products } = await getProductList()
@@ -57,9 +58,13 @@ const Products: React.FC = () => {
     getList()
   }, [])
 
+  if (!viewList.length) {
+    return <Alert message="조회된 상품이 없습니다." type="info" />
+  }
+
   return (
     <>
-      <Row justify="center">{[...list].filter(listFilter).map(listMap)}</Row>
+      <Row justify="center">{viewList.map(listMap)}</Row>
       <PageStyled onChange={onPageClick} defaultPageSize={limit} current={page} total={count} />
     </>
   )
