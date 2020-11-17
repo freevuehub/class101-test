@@ -29,7 +29,7 @@ const AppBar: React.FC = () => {
           <Link to="/products">상품 목록</Link>
         </Menu.Item>
         <Menu.Item key="2">
-          <Link to="/carts">장바구니</Link>
+          <Link to="/cart">장바구니</Link>
         </Menu.Item>
       </Menu>
     </AppBarStyled>
