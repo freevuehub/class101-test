@@ -7,7 +7,7 @@ import { Row, Col, Pagination } from 'antd'
 import { listUpdate } from '../store/products'
 import { getProductList } from '../api'
 import { ProductListItem } from '../components'
-import { IProduct, IStoreState } from '../types'
+import { IProduct, IStoreState, TypeMapProduct } from '../types'
 
 const ColStyled = styled(Col)`
   padding: 15px;
@@ -17,8 +17,8 @@ const PageStyled = styled(Pagination)`
   margin-top: 20px;
 `
 
-const listMap = (item: IProduct) => (
-  <ColStyled key={item.id} span={8} className="gutter-row">
+const listMap = ([id, item]: [string, IProduct]) => (
+  <ColStyled key={id} span={8} className="gutter-row">
     <ProductListItem item={item} />
   </ColStyled>
 )
@@ -30,13 +30,13 @@ const Products: React.FC = () => {
   const limit = 5
   const page = Number(query.page || 1)
 
-  const list: IProduct[] = useSelector((state: IStoreState) => state.products.list)
+  const list: TypeMapProduct = useSelector((state: IStoreState) => state.products.list)
   const count: number = useSelector((state: IStoreState) => state.products.count)
 
   const onPageClick = (currentPage: number) => {
     history.push(`/products?page=${currentPage}`)
   }
-  const listFilter = (_: IProduct, index: number) => {
+  const listFilter = (_: [string, IProduct], index: number) => {
     return (page - 1) * limit <= index && index < page * limit
   }
 
@@ -45,7 +45,12 @@ const Products: React.FC = () => {
 
     products.sort((prev: IProduct, cur: IProduct) => cur.score - prev.score)
 
-    dispatch(listUpdate({ list: products, count: products.length }))
+    dispatch(
+      listUpdate({
+        list: products.reduce((prev, cur: IProduct) => prev.set(cur.id, cur), new Map<string, IProduct>()),
+        count: products.length,
+      }),
+    )
   }
 
   useEffect(() => {
@@ -54,7 +59,7 @@ const Products: React.FC = () => {
 
   return (
     <>
-      <Row justify="center">{list.filter(listFilter).map(listMap)}</Row>
+      <Row justify="center">{[...list].filter(listFilter).map(listMap)}</Row>
       <PageStyled onChange={onPageClick} defaultPageSize={limit} current={page} total={count} />
     </>
   )

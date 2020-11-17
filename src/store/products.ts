@@ -2,10 +2,12 @@ import { IStoreProductsState } from '../types'
 
 const LIST_UPDATE = '@/products/LIST/UPDATE'
 
-export const listUpdate = (payload: IStoreProductsState) => ({ type: LIST_UPDATE, payload })
+export const listUpdate = (payload: IStoreProductsState) => {
+  return { type: LIST_UPDATE, payload }
+}
 
 const initailizeState = {
-  list: [],
+  list: new Map(),
   count: 0,
 }
 

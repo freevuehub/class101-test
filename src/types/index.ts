@@ -6,12 +6,14 @@ export interface IProduct {
   title: string
 }
 
+export type TypeMapProduct = Map<string, IProduct>
+
 export interface IProductListItem {
   products: IProduct[]
 }
 
 export interface IStoreProductsState {
-  list: IProduct[]
+  list: TypeMapProduct
   count: number
 }
 
