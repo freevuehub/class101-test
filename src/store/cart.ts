@@ -7,7 +7,10 @@ export const addProduct = (payload: string) => ({ type: ADD_PRODUCT, payload })
 export const deleteProduct = (payload: string) => ({ type: DELETE_PRODUCT, payload })
 
 const initailizeState = {
-  list: [],
+  // list: [],
+
+  // TODO: 해당 데이터는 장바구니 상태를 확인하기 위한 데이터이다. 최종 본에는 제거 필수.
+  list: [{ id: 'ZXV8mCcvbpXKm5J5snUq', count: 0 }],
 }
 
 export default (state: IStoreCartState = initailizeState, actions: any) => {
