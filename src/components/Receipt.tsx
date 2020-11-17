@@ -1,8 +1,8 @@
 import React from 'react'
 import { useSelector } from 'react-redux'
-import { Button, Divider, Select } from 'antd'
+import { Button, Divider } from 'antd'
 import { IStoreState, ICartListItem } from '../types'
-import { PriceRow } from './'
+import { PriceRow, CouponPrice } from './'
 
 const cartProductsMap = (item: any) => {
   const price = item?.price || 0
@@ -32,15 +32,9 @@ const Receipt: React.FC = () => {
     <div>
       {cartProducts.map(cartProductsMap)}
       <Divider />
-      <PriceRow title="총 상품 가격" price={productTotalPrice} />
-      <PriceRow price={productTotalPrice}>
-        <Select labelInValue size="large" style={{ width: 120 }}>
-          <Select.Option value="jack">Jack (100)</Select.Option>
-          <Select.Option value="lucy">Lucy (101)</Select.Option>
-        </Select>
-      </PriceRow>
+      <CouponPrice totalPrice={productTotalPrice} />
       <Divider />
-      <PriceRow title="최총 가격" price={productTotalPrice} />
+      <PriceRow title="최총 가격" price={0} />
       <Divider />
       <Button size="large">돌아가기</Button>
       <Button size="large" type="primary">
