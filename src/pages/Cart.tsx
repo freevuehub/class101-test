@@ -1,6 +1,6 @@
 import React from 'react'
 import { useSelector } from 'react-redux'
-import { Layout, Card } from 'antd'
+import { Card } from 'antd'
 import { IStoreState, ICartListItem } from '../types'
 
 const Carts: React.FC = () => {
