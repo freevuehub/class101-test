@@ -4,6 +4,7 @@ export interface IProduct {
   price: number
   score: number
   title: string
+  availableCoupon?: boolean
 }
 
 export type TypeMapProduct = Map<string, IProduct>
