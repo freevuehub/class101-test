@@ -1,8 +1,8 @@
 import React from 'react'
-import { Link } from "react-router-dom"
+import { Link } from 'react-router-dom'
 import { Layout, Menu } from 'antd'
 import styled from 'styled-components'
-import Logo from '~/assets/img/logo.png'
+import Logo from '../assets/img/logo.png'
 
 const LogoWrapStyled = styled.div`
   width: 80px;
@@ -22,7 +22,7 @@ const AppBar: React.FC = () => {
   return (
     <AppBarStyled>
       <LogoWrapStyled>
-        <img src={Logo} alt="Logo"/>
+        <img src={Logo} alt="Logo" />
       </LogoWrapStyled>
       <Menu theme="dark" mode="horizontal">
         <Menu.Item key="1">

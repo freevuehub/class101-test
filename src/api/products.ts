@@ -5,7 +5,7 @@ export const getProductList = async () => {
     const response = await axios.get('/product.json')
 
     console.log(response)
-  } catch(err) {
-
+  } catch (err) {
+    console.error(err)
   }
 }

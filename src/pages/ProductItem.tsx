@@ -1,5 +1,5 @@
 import React from 'react'
-import { useParams } from "react-router-dom"
+import { useParams } from 'react-router-dom'
 import { Layout } from 'antd'
 
 interface IParams {
@@ -9,11 +9,7 @@ interface IParams {
 const ProductItem: React.FC = () => {
   const { id }: IParams = useParams()
 
-  return (
-    <Layout.Content>
-      ProductItem {id}
-    </Layout.Content>
-  )
+  return <Layout.Content>ProductItem {id}</Layout.Content>
 }
 
 export default ProductItem
