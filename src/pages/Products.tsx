@@ -1,11 +1,13 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect } from 'react'
 import styled from 'styled-components'
 import { useLocation, useHistory } from 'react-router-dom'
+import { useSelector, useDispatch } from 'react-redux'
+import queryString from 'query-string'
 import { Row, Col, Pagination } from 'antd'
+import { listUpdate } from '../store/products'
 import { getProductList } from '../api'
 import { ProductListItem } from '../components'
 import { IProduct } from '../types'
-import queryString from 'query-string'
 
 const ColStyled = styled(Col)`
   padding: 15px;
@@ -21,14 +23,21 @@ const listMap = (item: IProduct) => (
   </ColStyled>
 )
 const Products: React.FC = () => {
+  const dispatch = useDispatch()
   const history = useHistory()
   const query = queryString.parse(useLocation().search)
+
   const limit = 5
   const page = Number(query.page || 1)
-  const [list, setList] = useState<IProduct[]>([])
-  const [count, setCount] = useState<number>(0)
+
+  const list: IProduct[] = useSelector((state: any) => state.products.list)
+  const count: number = useSelector((state: any) => state.products.count)
+
   const onPageClick = (currentPage: number) => {
     history.push(`/products?page=${currentPage}`)
+  }
+  const listFilter = (_: IProduct, index: number) => {
+    return (page - 1) * limit <= index && index < page * limit
   }
 
   const getList = async () => {
@@ -36,24 +45,16 @@ const Products: React.FC = () => {
 
     products.sort((prev: IProduct, cur: IProduct) => cur.score - prev.score)
 
-    const filterProducts = products.filter((_, index: number) => {
-      return (page - 1) * limit <= index && index < page * limit
-    })
-
-    setCount(products.length)
-    setList(filterProducts)
+    dispatch(listUpdate({ list: products, count: products.length }))
   }
 
   useEffect(() => {
     getList()
   }, [])
-  useEffect(() => {
-    console.log('page')
-  }, [page])
 
   return (
     <>
-      <Row>{list.map(listMap)}</Row>
+      <Row>{list.filter(listFilter).map(listMap)}</Row>
       <PageStyled onChange={onPageClick} defaultCurrent={page} total={count} />
     </>
   )
