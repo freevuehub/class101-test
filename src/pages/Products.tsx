@@ -10,6 +10,10 @@ import queryString from 'query-string'
 const ColStyled = styled(Col)`
   padding: 15px;
 `
+const PageStyled = styled(Pagination)`
+  text-align: center;
+  margin-top: 20px;
+`
 
 const listMap = (item: IProduct) => (
   <ColStyled key={item.id} span={8} className="gutter-row">
@@ -50,7 +54,7 @@ const Products: React.FC = () => {
   return (
     <>
       <Row>{list.map(listMap)}</Row>
-      <Pagination onChange={onPageClick} defaultCurrent={page} total={count} />
+      <PageStyled onChange={onPageClick} defaultCurrent={page} total={count} />
     </>
   )
 }

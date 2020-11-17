@@ -5,6 +5,9 @@ import { Layout } from 'antd'
 import { Home, Products, Cart } from './pages'
 import { AppBar } from './components'
 
+const LayoutStyled = styled(Layout)`
+  min-height: 100vh;
+`
 const ContentStyled = styled(Layout.Content)`
   max-width: 1200px;
   padding: 50px 0;
@@ -14,7 +17,7 @@ const ContentStyled = styled(Layout.Content)`
 const App: React.FC = () => {
   return (
     <Router>
-      <Layout>
+      <LayoutStyled>
         <AppBar />
         <ContentStyled>
           <Switch>
@@ -24,7 +27,7 @@ const App: React.FC = () => {
           </Switch>
         </ContentStyled>
         <Layout.Footer style={{ textAlign: 'center' }}>FreeVue Copyright © 2020.</Layout.Footer>
-      </Layout>
+      </LayoutStyled>
     </Router>
   )
 }
