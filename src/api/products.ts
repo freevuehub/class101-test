@@ -1,17 +1,6 @@
 import axios, { AxiosResponse } from 'axios'
 import endpoint from './endpoint.config'
-
-interface IProduct {
-  coverImage: string
-  id: string
-  price: number
-  score: number
-  title: string
-}
-
-interface IProductListItem {
-  products: IProduct[]
-}
+import { IProductListItem } from '../types'
 
 export const getProductList = async () => {
   try {

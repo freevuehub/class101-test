@@ -9,7 +9,7 @@ interface IConfig {
 const config: IConfig = {
   products: {
     request: {
-      list: () => `/data/product.json`,
+      list: () => '/data/product.json',
     },
   },
 }
