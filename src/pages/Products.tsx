@@ -1,9 +1,11 @@
 import React, { useEffect, useState } from 'react'
 import styled from 'styled-components'
-import { Row, Col } from 'antd'
+import { useLocation, useHistory } from 'react-router-dom'
+import { Row, Col, Pagination } from 'antd'
 import { getProductList } from '../api'
 import { ProductListItem } from '../components'
 import { IProduct } from '../types'
+import queryString from 'query-string'
 
 const ColStyled = styled(Col)`
   padding: 15px;
@@ -15,21 +17,42 @@ const listMap = (item: IProduct) => (
   </ColStyled>
 )
 const Products: React.FC = () => {
+  const history = useHistory()
+  const query = queryString.parse(useLocation().search)
+  const limit = 5
+  const page = Number(query.page || 1)
   const [list, setList] = useState<IProduct[]>([])
+  const [count, setCount] = useState<number>(0)
+  const onPageClick = (currentPage: number) => {
+    history.push(`/products?page=${currentPage}`)
+  }
 
   const getList = async () => {
     const { products } = await getProductList()
 
     products.sort((prev: IProduct, cur: IProduct) => cur.score - prev.score)
 
-    setList(products)
+    const filterProducts = products.filter((_, index: number) => {
+      return (page - 1) * limit <= index && index < page * limit
+    })
+
+    setCount(products.length)
+    setList(filterProducts)
   }
 
   useEffect(() => {
     getList()
   }, [])
+  useEffect(() => {
+    console.log('page')
+  }, [page])
 
-  return <Row>{list.map(listMap)}</Row>
+  return (
+    <>
+      <Row>{list.map(listMap)}</Row>
+      <Pagination onChange={onPageClick} defaultCurrent={page} total={count} />
+    </>
+  )
 }
 
 export default Products
