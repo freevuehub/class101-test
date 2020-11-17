@@ -1,4 +1,4 @@
-import { IProduct, IStoreProductsState } from '../types'
+import { IStoreProductsState } from '../types'
 
 const LIST_UPDATE = '@/products/LIST/UPDATE'
 
