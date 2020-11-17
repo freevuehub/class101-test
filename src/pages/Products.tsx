@@ -7,7 +7,7 @@ import { Row, Col, Pagination } from 'antd'
 import { listUpdate } from '../store/products'
 import { getProductList } from '../api'
 import { ProductListItem } from '../components'
-import { IProduct } from '../types'
+import { IProduct, IStoreState } from '../types'
 
 const ColStyled = styled(Col)`
   padding: 15px;
@@ -30,8 +30,8 @@ const Products: React.FC = () => {
   const limit = 5
   const page = Number(query.page || 1)
 
-  const list: IProduct[] = useSelector((state: any) => state.products.list)
-  const count: number = useSelector((state: any) => state.products.count)
+  const list: IProduct[] = useSelector((state: IStoreState) => state.products.list)
+  const count: number = useSelector((state: IStoreState) => state.products.count)
 
   const onPageClick = (currentPage: number) => {
     history.push(`/products?page=${currentPage}`)
@@ -54,8 +54,8 @@ const Products: React.FC = () => {
 
   return (
     <>
-      <Row>{list.filter(listFilter).map(listMap)}</Row>
-      <PageStyled onChange={onPageClick} defaultCurrent={page} total={count} />
+      <Row justify="center">{list.filter(listFilter).map(listMap)}</Row>
+      <PageStyled onChange={onPageClick} defaultPageSize={limit} current={page} total={count} />
     </>
   )
 }

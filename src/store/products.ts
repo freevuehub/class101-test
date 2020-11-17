@@ -1,22 +1,15 @@
-import { IProduct } from '../types'
-
-interface IListUpdatePayload {
-  count: number
-  list: IProduct[]
-}
-
-type IState = IListUpdatePayload
+import { IProduct, IStoreProductsState } from '../types'
 
 const LIST_UPDATE = '@/products/LIST/UPDATE'
 
-export const listUpdate = (payload: IListUpdatePayload) => ({ type: LIST_UPDATE, payload })
+export const listUpdate = (payload: IStoreProductsState) => ({ type: LIST_UPDATE, payload })
 
 const initailizeState = {
   list: [],
   count: 0,
 }
 
-export default (state: IState = initailizeState, actions: any) => {
+export default (state: IStoreProductsState = initailizeState, actions: any) => {
   switch (actions.type) {
     case LIST_UPDATE:
       return {

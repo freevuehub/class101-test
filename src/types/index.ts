@@ -9,3 +9,12 @@ export interface IProduct {
 export interface IProductListItem {
   products: IProduct[]
 }
+
+export interface IStoreProductsState {
+  list: IProduct[]
+  count: number
+}
+
+export interface IStoreState {
+  products: IStoreProductsState
+}
