@@ -12,7 +12,9 @@ module.exports = {
     jsx: true,  
   },
   },
-  rules: {},
+  rules: {
+    "default-param-last": "off",
+  },
   settings: {
     react: {
       version: 'detect', 
