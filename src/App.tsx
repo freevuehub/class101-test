@@ -2,7 +2,7 @@ import React from 'react'
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom'
 import styled from 'styled-components'
 import { Layout } from 'antd'
-import { Home, Products, ProductItem, Cart } from './pages'
+import { Home, Products, Cart } from './pages'
 import { AppBar } from './components'
 
 const ContentStyled = styled(Layout.Content)`
@@ -19,8 +19,7 @@ const App: React.FC = () => {
         <ContentStyled>
           <Switch>
             <Route exact path="/" component={Home} />
-            <Route exact path="/products" component={Products} />
-            <Route path="/products/:id" component={ProductItem} />
+            <Route path="/products" component={Products} />
             <Route path="/Cart" component={Cart} />
           </Switch>
         </ContentStyled>
