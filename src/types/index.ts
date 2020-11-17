@@ -15,8 +15,13 @@ export interface IStoreProductsState {
   count: number
 }
 
+export interface ICartListItem {
+  id: string
+  count: number
+}
+
 export interface IStoreCartState {
-  list: IProduct[]
+  list: ICartListItem[]
 }
 
 export interface IStoreState {

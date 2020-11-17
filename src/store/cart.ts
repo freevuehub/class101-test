@@ -1,9 +1,9 @@
-import { IProduct, IStoreCartState } from '../types'
+import { IStoreCartState, ICartListItem } from '../types'
 
 const ADD_PRODUCT = '@/cart/ADD/PRODUCT'
 const DELETE_PRODUCT = '@/cart/DELETE/PRODUCT'
 
-export const addProduct = (payload: IProduct) => ({ type: ADD_PRODUCT, payload })
+export const addProduct = (payload: string) => ({ type: ADD_PRODUCT, payload })
 export const deleteProduct = (payload: string) => ({ type: DELETE_PRODUCT, payload })
 
 const initailizeState = {
@@ -15,11 +15,20 @@ export default (state: IStoreCartState = initailizeState, actions: any) => {
     case ADD_PRODUCT:
       return {
         ...state,
-        list: [...state.list, actions.payload.product],
+        list: [
+          ...state.list,
+          {
+            id: actions.payload,
+            count: 1,
+          },
+        ],
       }
     case DELETE_PRODUCT:
+      const filterList = (item: ICartListItem) => item.id !== actions.payload
+
       return {
         ...state,
+        list: state.list.filter(filterList),
       }
     default:
       return Object.assign({}, state)
