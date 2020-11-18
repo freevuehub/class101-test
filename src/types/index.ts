@@ -24,6 +24,13 @@ export interface ICartListItem {
   checked: boolean
 }
 
+export interface ICouponListItem {
+  title: string
+  type: string
+  discountRate?: number
+  discountAmount?: number
+}
+
 export interface IStoreCartState {
   list: ICartListItem[]
 }
