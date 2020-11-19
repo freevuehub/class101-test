@@ -32,7 +32,7 @@ const PriceRow: React.FC<IProps> = (props) => {
         props.children
       ) : (
         <h3>
-          {props.title} {props.count && <span>x {props.count}</span>}
+          {props.title} {typeof props.count === 'number' && <span>x {props.count}</span>}
         </h3>
       )}
       <h1>{priceString(props.price)}원</h1>

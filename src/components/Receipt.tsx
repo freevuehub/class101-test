@@ -28,7 +28,6 @@ const cartProductsMap = (item: ICartProduct) => {
   return <PriceRow key={item.id} title={item?.title} price={price * item.count} count={item.count} />
 }
 const cartProductFilter = (item: ICartProduct) => {
-  console.log(item)
   return item.checked
 }
 const cartProductsReduce = (prev: number, cur: ICartProduct) => {

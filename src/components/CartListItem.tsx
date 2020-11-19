@@ -6,7 +6,7 @@ import styled from 'styled-components'
 import { deleteProduct } from '../store/cart'
 import { priceString } from '../utils'
 import { IProduct, ICartListItem } from '../types'
-import { checkProduct } from '../store/cart'
+import { checkProduct, plusCount, minusCount } from '../store/cart'
 
 interface IProps {
   item: ICartListItem
@@ -49,6 +49,14 @@ const CartListItem: React.FC<IProps> = (props) => {
   const onCheckboxChange = () => {
     dispatch(checkProduct(props.item.id))
   }
+  const onMinusClick = () => {
+    if (props.item.count > 0) {
+      dispatch(minusCount(props.item.id))
+    }
+  }
+  const onPlusClick = () => {
+    dispatch(plusCount(props.item.id))
+  }
 
   if (!props.product) {
     dispatch(deleteProduct(props.item.id))
@@ -61,9 +69,9 @@ const CartListItem: React.FC<IProps> = (props) => {
     <CardStyled cover={<img src={props.product?.coverImage} alt={props.product?.title} />}>
       <Card.Meta title={props.product?.title} description={description} />
       <div className="count-remote">
-        <Button icon={<MinusOutlined />} size="large" />
+        <Button icon={<MinusOutlined />} size="large" onClick={onMinusClick} />
         <h1>{props.item.count}</h1>
-        <Button type="primary" icon={<PlusOutlined />} size="large" />
+        <Button type="primary" icon={<PlusOutlined />} size="large" onClick={onPlusClick} />
       </div>
       <div className="check-remote">
         <Checkbox onChange={onCheckboxChange} checked={props.item.checked} />

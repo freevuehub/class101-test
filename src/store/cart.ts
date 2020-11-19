@@ -1,10 +1,5 @@
 import { IStoreCartState, ICartListItem } from '../types'
 
-interface ICountPayload {
-  id: string
-  count: number
-}
-
 const ADD_PRODUCT = '@/cart/ADD/PRODUCT'
 const DELETE_PRODUCT = '@/cart/DELETE/PRODUCT'
 const PLUS_COUNT = '@/cart/PLUS/COUNT'
@@ -13,8 +8,8 @@ const CHECK_PRODUCT = '@/cart/CHECK/PRODUCT'
 
 export const addProduct = (payload: string) => ({ type: ADD_PRODUCT, payload })
 export const deleteProduct = (payload: string) => ({ type: DELETE_PRODUCT, payload })
-export const plusCount = (payload: ICountPayload) => ({ type: PLUS_COUNT, payload })
-export const minusCount = (payload: ICountPayload) => ({ type: MINUS_COUNT, payload })
+export const plusCount = (payload: string) => ({ type: PLUS_COUNT, payload })
+export const minusCount = (payload: string) => ({ type: MINUS_COUNT, payload })
 export const checkProduct = (payload: string) => ({ type: CHECK_PRODUCT, payload })
 
 const initailizeState = {
@@ -46,21 +41,31 @@ export default (state: IStoreCartState = initailizeState, actions: any) => {
         list: state.list.filter(filterList),
       }
     case PLUS_COUNT:
+      const plusListMap = (product: ICartListItem) => {
+        return product.id === actions.payload ? { ...product, count: ++product.count } : product
+      }
+
       return {
         ...state,
+        list: state.list.map(plusListMap),
       }
     case MINUS_COUNT:
+      const minusListMap = (product: ICartListItem) => {
+        return product.id === actions.payload ? { ...product, count: --product.count } : product
+      }
+
       return {
         ...state,
+        list: state.list.map(minusListMap),
       }
     case CHECK_PRODUCT:
-      const listMap = (product: ICartListItem) => {
+      const checkListMap = (product: ICartListItem) => {
         return product.id === actions.payload ? { ...product, checked: !product.checked } : product
       }
 
       return {
         ...state,
-        list: state.list.map(listMap),
+        list: state.list.map(checkListMap),
       }
     default:
       return Object.assign({}, state)
