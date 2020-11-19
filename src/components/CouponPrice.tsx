@@ -10,28 +10,11 @@ interface IProps {
   onChange: (price: number) => void
 }
 
-interface ISelectValue {
-  key: number
-  label: string
-  value: number
-}
-
-interface ICouponSelectListItem {
-  id: number
-  title: string
-  type: string
-  value: number
-}
-
 const SelectStyled = styled(Select)`
   width: 200px;
   .ant-select-selector {
     border-radius: 8px;
   }
-`
-const DiscountStyled = styled.p`
-  margin: auto auto 0 5px;
-  opacity: 0.5;
 `
 const listMap = (item: any) => {
   return (
@@ -42,19 +25,16 @@ const listMap = (item: any) => {
 }
 const CouponPrice: React.FC<IProps> = (props) => {
   const [list, setList] = useState<ICouponListItem[]>([])
-  const [discount, setDiscount] = useState('')
   const [amount, setAmount] = useState(0)
   const onCouponChange = ({ value }: any) => {
     const coupon: any = list[value]
 
     if (coupon.type === 'amount') {
       setAmount(props.totalPrice > 0 ? coupon.value : 0)
-      setDiscount(`${coupon.value} 원`)
 
       props.onChange(props.totalPrice > 0 ? coupon.value : 0)
     } else if (coupon.type === 'rate') {
       setAmount(props.totalPrice * (coupon.value / 100))
-      setDiscount(`${coupon.value} %`)
 
       props.onChange(props.totalPrice * (coupon.value / 100))
     }
@@ -91,10 +71,6 @@ const CouponPrice: React.FC<IProps> = (props) => {
         <SelectStyled labelInValue size="large" placeholder="쿠폰을 선택해주세요." onChange={onCouponChange}>
           {list.map(listMap)}
         </SelectStyled>
-        {/*
-          해당 기능을 넣을지 고민...
-          <DiscountStyled>{discount}</DiscountStyled>
-        */}
       </PriceRow>
     </>
   )
