@@ -1,8 +1,10 @@
-import { IStoreProductsState } from '../types'
+import { IStoreProductsState, IAction } from '../types'
+
+type TypeProductsAction = IAction<IStoreProductsState>
 
 const LIST_UPDATE = '@/products/LIST/UPDATE'
 
-export const listUpdate = (payload: IStoreProductsState) => {
+export const listUpdate = (payload: IStoreProductsState): TypeProductsAction => {
   return { type: LIST_UPDATE, payload }
 }
 
@@ -11,7 +13,7 @@ const initailizeState = {
   count: 0,
 }
 
-export default (state: IStoreProductsState = initailizeState, actions: any) => {
+export default (state: IStoreProductsState = initailizeState, actions: TypeProductsAction): IStoreProductsState => {
   switch (actions.type) {
     case LIST_UPDATE:
       return {
