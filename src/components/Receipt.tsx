@@ -1,9 +1,11 @@
 import React, { useState } from 'react'
+import { useHistory } from 'react-router'
 import { useSelector } from 'react-redux'
 import styled from 'styled-components'
 import { Button, Divider, Alert } from 'antd'
 import { IStoreState, ICartListItem, IProduct } from '../types'
 import { PriceRow, CouponPrice } from './'
+import { priceString } from '../utils'
 interface ICartProduct extends ICartListItem {
   coverImage?: string
   price?: number
@@ -37,9 +39,9 @@ const possibleDiscountReduce = (prev: number, cur: ICartProduct) => {
   return prev + (cur.availableCoupon === false ? 0 : (cur?.price || 0) * cur.count)
 }
 const Receipt: React.FC = () => {
+  const history = useHistory()
   const cartList = useSelector((state: IStoreState) => state.cart.list)
   const productList = useSelector((state: IStoreState) => state.products.list)
-
   const [discount, setDiscount] = useState(0)
 
   const cartListMapProduct = (item: ICartListItem) => {
@@ -53,6 +55,12 @@ const Receipt: React.FC = () => {
 
   const onDiscountChange = (price: number) => {
     setDiscount(price)
+  }
+  const onBackClick = () => {
+    history.goBack()
+  }
+  const onBuyClick = () => {
+    alert(`총 금액은 ${priceString(productTotalPrice - discount)}원 입니다.`)
   }
 
   const cartProducts = cartList.map(cartListMapProduct).filter(cartProductFilter)
@@ -75,8 +83,10 @@ const Receipt: React.FC = () => {
       )}
       <Divider />
       <ButtonGroupStyled>
-        <Button size="large">돌아가기</Button>
-        <Button size="large" type="primary">
+        <Button size="large" onClick={onBackClick}>
+          돌아가기
+        </Button>
+        <Button size="large" type="primary" onClick={onBuyClick}>
           구입하기
         </Button>
       </ButtonGroupStyled>
