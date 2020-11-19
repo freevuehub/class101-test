@@ -6,6 +6,7 @@ import styled from 'styled-components'
 import { deleteProduct } from '../store/cart'
 import { priceString } from '../utils'
 import { IProduct, ICartListItem } from '../types'
+import { checkProduct } from '../store/cart'
 
 interface IProps {
   item: ICartListItem
@@ -46,7 +47,7 @@ const CardStyled = styled(Card)`
 const CartListItem: React.FC<IProps> = (props) => {
   const dispatch = useDispatch()
   const onCheckboxChange = () => {
-    console.log(props.item.id)
+    dispatch(checkProduct(props.item.id))
   }
 
   if (!props.product) {
