@@ -9,8 +9,12 @@ export interface IProduct {
 
 export type TypeMapProduct = Map<string, IProduct>
 
-export interface IProductListItem {
+export interface IProductsAxiosResponse {
   products: IProduct[]
+}
+
+export interface ICouponsAxiosResponse {
+  coupons: ICouponListItem[]
 }
 
 export interface IStoreProductsState {
