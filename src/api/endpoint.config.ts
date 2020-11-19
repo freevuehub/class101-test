@@ -14,12 +14,12 @@ interface IConfig {
 const config: IConfig = {
   products: {
     request: {
-      list: () => '/data/product.json',
+      list: (): string => '/data/product.json',
     },
   },
   coupon: {
     request: {
-      list: () => '/data/coupon.json',
+      list: (): string => '/data/coupon.json',
     },
   },
 }

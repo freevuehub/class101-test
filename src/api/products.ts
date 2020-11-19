@@ -2,7 +2,7 @@ import axios, { AxiosResponse } from 'axios'
 import endpoint from './endpoint.config'
 import { IProductsAxiosResponse } from '../types'
 
-export const getProductList = async () => {
+export const getProductList = async (): Promise<IProductsAxiosResponse> => {
   try {
     const { data }: AxiosResponse<IProductsAxiosResponse> = await axios.get(endpoint.products.request.list())
 
