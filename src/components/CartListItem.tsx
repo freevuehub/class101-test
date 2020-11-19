@@ -50,7 +50,7 @@ const CartListItem: React.FC<IProps> = (props) => {
     dispatch(checkProduct(props.item.id))
   }
   const onMinusClick = () => {
-    if (props.item.count > 0) {
+    if (props.item.count > 1) {
       dispatch(minusCount(props.item.id))
     }
   }
