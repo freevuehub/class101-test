@@ -1,4 +1,6 @@
-import { IStoreCartState, ICartListItem } from '../types'
+import { IStoreCartState, ICartListItem, IAction } from '../types'
+
+type TypeCartAction = IAction<string>
 
 const ADD_PRODUCT = '@/cart/ADD/PRODUCT'
 const DELETE_PRODUCT = '@/cart/DELETE/PRODUCT'
@@ -6,11 +8,11 @@ const PLUS_COUNT = '@/cart/PLUS/COUNT'
 const MINUS_COUNT = '@/cart/MINUS/COUNT'
 const CHECK_PRODUCT = '@/cart/CHECK/PRODUCT'
 
-export const addProduct = (payload: string) => ({ type: ADD_PRODUCT, payload })
-export const deleteProduct = (payload: string) => ({ type: DELETE_PRODUCT, payload })
-export const plusCount = (payload: string) => ({ type: PLUS_COUNT, payload })
-export const minusCount = (payload: string) => ({ type: MINUS_COUNT, payload })
-export const checkProduct = (payload: string) => ({ type: CHECK_PRODUCT, payload })
+export const addProduct = (payload: string): TypeCartAction => ({ type: ADD_PRODUCT, payload })
+export const deleteProduct = (payload: string): TypeCartAction => ({ type: DELETE_PRODUCT, payload })
+export const plusCount = (payload: string): TypeCartAction => ({ type: PLUS_COUNT, payload })
+export const minusCount = (payload: string): TypeCartAction => ({ type: MINUS_COUNT, payload })
+export const checkProduct = (payload: string): TypeCartAction => ({ type: CHECK_PRODUCT, payload })
 
 const initailizeState = {
   // list: [],
@@ -19,7 +21,7 @@ const initailizeState = {
   list: [{ id: 'tpP45lSwqf1X1yEEFqL4', count: 2, checked: true }],
 }
 
-export default (state: IStoreCartState = initailizeState, actions: any) => {
+export default (state: IStoreCartState = initailizeState, actions: TypeCartAction): IStoreCartState => {
   switch (actions.type) {
     case ADD_PRODUCT:
       return {

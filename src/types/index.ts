@@ -43,3 +43,8 @@ export interface IStoreState {
   products: IStoreProductsState
   cart: IStoreCartState
 }
+
+export interface IAction<T> {
+  type: string
+  payload: T
+}
