@@ -7,6 +7,7 @@ import { ICouponListItem } from '../types'
 
 interface IProps {
   totalPrice: number
+  onChange: (price: number) => void
 }
 
 interface ISelectValue {
@@ -49,9 +50,13 @@ const CouponPrice: React.FC<IProps> = (props) => {
     if (coupon.type === 'amount') {
       setAmount(props.totalPrice > 0 ? coupon.value : 0)
       setDiscount(`${coupon.value} 원`)
+
+      props.onChange(props.totalPrice > 0 ? coupon.value : 0)
     } else if (coupon.type === 'rate') {
       setAmount(props.totalPrice * (coupon.value / 100))
       setDiscount(`${coupon.value} %`)
+
+      props.onChange(props.totalPrice * (coupon.value / 100))
     }
   }
 

@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { useSelector } from 'react-redux'
 import styled from 'styled-components'
 import { Button, Divider, Alert } from 'antd'
@@ -35,11 +35,13 @@ const cartProductsReduce = (prev: number, cur: ICartProduct) => {
   return prev + (cur?.price || 0) * cur.count
 }
 const possibleDiscountReduce = (prev: number, cur: ICartProduct) => {
-  return prev + (cur.availableCoupon ? (cur?.price || 0) * cur.count : 0)
+  return prev + (cur.availableCoupon === false ? 0 : (cur?.price || 0) * cur.count)
 }
 const Receipt: React.FC = () => {
   const cartList = useSelector((state: IStoreState) => state.cart.list)
   const productList = useSelector((state: IStoreState) => state.products.list)
+
+  const [discount, setDiscount] = useState(0)
 
   const cartListMapProduct = (item: ICartListItem) => {
     const product: IProduct | undefined = productList.get(item.id)
@@ -48,6 +50,10 @@ const Receipt: React.FC = () => {
       ...product,
       ...item,
     }
+  }
+
+  const onDiscountChange = (price: number) => {
+    setDiscount(price)
   }
 
   const cartProducts = cartList.map(cartListMapProduct).filter(cartProductFilter)
@@ -61,9 +67,9 @@ const Receipt: React.FC = () => {
           {cartProducts.map(cartProductsMap)}
           <Divider />
           <PriceRow title="총 상품 가격" price={productTotalPrice} />
-          <CouponPrice totalPrice={possibleDiscountPrice} />
+          <CouponPrice totalPrice={possibleDiscountPrice} onChange={onDiscountChange} />
           <Divider />
-          <PriceRow title="최총 가격" price={0} />
+          <PriceRow title="최총 가격" price={productTotalPrice - discount} />
         </>
       ) : (
         <Alert message="선택된 상품이 없습니다." type="info" />

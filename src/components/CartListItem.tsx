@@ -55,10 +55,11 @@ const CartListItem: React.FC<IProps> = (props) => {
   }
 
   const price = props.product?.price || 0
+  const description = `${priceString(price)} 원 ${props.product?.availableCoupon === false ? '(할인 불가 상품)' : ''}`
 
   return (
     <CardStyled cover={<img src={props.product?.coverImage} alt={props.product?.title} />}>
-      <Card.Meta title={props.product?.title} description={`${priceString(price * props.item.count)} 원`} />
+      <Card.Meta title={props.product?.title} description={description} />
       <div className="count-remote">
         <Button icon={<MinusOutlined />} size="large" />
         <h1>{props.item.count}</h1>
