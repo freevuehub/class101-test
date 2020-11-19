@@ -15,10 +15,7 @@ export const minusCount = (payload: string): TypeCartAction => ({ type: MINUS_CO
 export const checkProduct = (payload: string): TypeCartAction => ({ type: CHECK_PRODUCT, payload })
 
 const initailizeState = {
-  // list: [],
-
-  // TODO: 해당 데이터는 장바구니 상태를 확인하기 위한 데이터이다. 최종 본에는 제거 필수.
-  list: [{ id: 'tpP45lSwqf1X1yEEFqL4', count: 2, checked: true }],
+  list: [],
 }
 
 export default (state: IStoreCartState = initailizeState, actions: TypeCartAction): IStoreCartState => {
