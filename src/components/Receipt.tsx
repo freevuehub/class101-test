@@ -34,6 +34,9 @@ const cartProductFilter = (item: ICartProduct) => {
 const cartProductsReduce = (prev: number, cur: ICartProduct) => {
   return prev + (cur?.price || 0) * cur.count
 }
+const possibleDiscountReduce = (prev: number, cur: ICartProduct) => {
+  return prev + (cur.availableCoupon ? (cur?.price || 0) * cur.count : 0)
+}
 const Receipt: React.FC = () => {
   const cartList = useSelector((state: IStoreState) => state.cart.list)
   const productList = useSelector((state: IStoreState) => state.products.list)
@@ -49,6 +52,7 @@ const Receipt: React.FC = () => {
 
   const cartProducts = cartList.map(cartListMapProduct).filter(cartProductFilter)
   const productTotalPrice = cartProducts.reduce(cartProductsReduce, 0)
+  const possibleDiscountPrice = cartProducts.reduce(possibleDiscountReduce, 0)
 
   return (
     <>
@@ -56,7 +60,8 @@ const Receipt: React.FC = () => {
         <>
           {cartProducts.map(cartProductsMap)}
           <Divider />
-          <CouponPrice totalPrice={productTotalPrice} />
+          <PriceRow title="총 상품 가격" price={productTotalPrice} />
+          <CouponPrice totalPrice={possibleDiscountPrice} />
           <Divider />
           <PriceRow title="최총 가격" price={0} />
         </>

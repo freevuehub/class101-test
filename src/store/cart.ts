@@ -21,7 +21,7 @@ const initailizeState = {
   // list: [],
 
   // TODO: 해당 데이터는 장바구니 상태를 확인하기 위한 데이터이다. 최종 본에는 제거 필수.
-  list: [{ id: 'ZXV8mCcvbpXKm5J5snUq', count: 1, checked: true }],
+  list: [{ id: 'tpP45lSwqf1X1yEEFqL4', count: 2, checked: true }],
 }
 
 export default (state: IStoreCartState = initailizeState, actions: any) => {

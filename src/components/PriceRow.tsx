@@ -12,7 +12,12 @@ const PriceRowStyled = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
+  margin-bottom: 10px;
+  h1 {
+    margin-bottom: 0;
+  }
   h3 {
+    margin-bottom: 0;
     span {
       margin-left: 5px;
       font-size: 13px;
