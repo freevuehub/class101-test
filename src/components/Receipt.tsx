@@ -54,7 +54,7 @@ const Receipt: React.FC = () => {
   }
 
   const onDiscountChange = (price: number) => {
-    setDiscount(price)
+    setDiscount(Math.floor(price))
   }
   const onBackClick = () => {
     history.goBack()
