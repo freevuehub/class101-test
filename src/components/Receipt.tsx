@@ -60,7 +60,13 @@ const Receipt: React.FC = () => {
     history.goBack()
   }
   const onBuyClick = () => {
-    alert(`총 금액은 ${priceString(productTotalPrice - discount)}원 입니다.`)
+    console.log(`
+      상품 금액: ${priceString(productTotalPrice)} 원
+      할인 금액: ${priceString(discount)} 원
+      총 결제 금액: ${priceString(productTotalPrice - discount)} 원
+    `)
+
+    alert(`console 창을 확인해주세요.`)
   }
 
   const cartProducts = cartList.map(cartListMapProduct).filter(cartProductFilter)
